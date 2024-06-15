@@ -1,11 +1,12 @@
 NAME = ircserv
 CC = c++
-CFLAGS = -g -Wall -Wextra -std=c++98 #-Werror 
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
 INCLUDES = -I./includes
 
 SRCS =	srcs/main.cpp\
 		srcs/Client.cpp\
 		srcs/Server.cpp\
+		srcs/utils.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

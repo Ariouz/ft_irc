@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laguigue <laguigue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/14 18:31:41 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:05:52 by laguigue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	Client::setIpAddr(std::string ipAddr)
 	this->_ipAddr = ipAddr;
 }
 
+void	Client::setSendBuffer(std::string buffer)
+{
+	this->_sendBuffer = buffer;
+}
+
 int		Client::getFd(void) const
 {
 	return (this->_fd);
@@ -54,4 +59,9 @@ const std::string&	Client::getNickname(void) const
 const std::string&	Client::getIpAddr(void) const
 {
 	return (this->_ipAddr);
+}
+
+std::string&	Client::getSendBuffer(void)
+{
+	return (this->_sendBuffer);
 }

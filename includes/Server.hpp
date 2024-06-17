@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 10:23:42 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:47:47 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ class Server
 		int						getPort(void) const;
 		int						getServerFd(void) const;
 		const std::string&		getPassword(void) const;
-		const Channel* 			getChannel(int channelId) const;
-		const std::vector<Client> getClients(void) const;
-		const std::vector<Channel> getChannels(void) const;
+		Client* 				getClient(int clientFd);
+		Channel* 			getChannel(int channelId);
+		std::vector<Client> getClients(void) const;
+		std::vector<Channel> getChannels(void) const;
 };
 
 #endif

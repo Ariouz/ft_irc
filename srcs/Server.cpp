@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 11:34:44 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:59:05 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,10 @@ void	Server::acceptClient(void)
 	this->_polls.push_back(client_poll_fd);
 
 	std::cout << "Client " << client_socket_fd << " connected" << std::endl;
+
 }
+
+# define CMD(user) ("Hello " user)
 
 void	Server::acceptData(int fd)
 {
@@ -152,6 +155,11 @@ void	Server::acceptData(int fd)
 
 	data = recv(fd, buffer, sizeof(buffer) - 1, 0);
 
+	std::cout << buffer << std::endl;
+
+
+	
+
 	if (data <= 0)
 	{
 		std::cout << "Client " << fd << " disconnected" << std::endl;
@@ -160,33 +168,36 @@ void	Server::acceptData(int fd)
 	}
 
 	buffer[1023] = '\0';
+	std::string test = buffer;
 
-	for (std::size_t index = 0; index < this->_clients.size(); index++)
-	{
-		if (this->_clients[index].getFd() == fd)
-		{
-			this->_clients[index].setSendBuffer(buffer);
-		}
-	}
+	Client* client = this->getClient(fd);
+	std::cout << client->getFd();
+
+		//"001 <client> :Welcome to the <networkname> Network, <nick>[!<user>@<host>]\r\n"
+	
+	client->setSendBuffer(CMD("test"));
+	std::cout << client->getSendBuffer();
 }
+
+/*
+	func replace(msg, client, server)
+		return msg.replace("<client>"m client) . replace:<server>, "server")
+
+*/
 
 void	Server::handlePollout(int fd)
 {
-	for (std::size_t index = 0; index < this->_clients.size(); index++)
+	Client* client = this->getClient(fd);
+	if (client->getSendBuffer().empty()) 
 	{
-		if (this->_clients[index].getFd() == fd)
-		{
-			for (std::size_t j = 0; j < this->_clients.size(); j++)
-			{
-				if (this->_clients[j].getFd() != fd)
-				{
-					send(this->_clients[j].getFd(), this->_clients[index].getSendBuffer().c_str(), this->_clients[index].getSendBuffer().size() , 0);
-				}
-			}
-			this->_clients[index].getSendBuffer().clear();
-		}
+		//std::cout << "empty buffer" << std::endl;
+		return ;
 	}
-}
+	std::cout << client->getFd() << std::endl;
+	std::cout << client->getSendBuffer() << std::endl;
+	send(fd, client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
+	client->getSendBuffer().clear();
+}	
 
 void	Server::closeFd(void)
 {
@@ -259,27 +270,28 @@ const std::string&	Server::getPassword(void) const
 	return (this->_password);
 }
 
-const std::vector<Client> Server::getClients(void) const
+std::vector<Client> Server::getClients(void) const
 {
 	return this->_clients;
 }
 
-/*const Channel* Server::getChannel(int channelId) const
+Client* Server::getClient(int clientFd)
 {
-	for (std::size_t index = 0; index < this->_channels.size(); index++)
+	for (std::size_t index = 0; index < this->_clients.size(); index++)
 	{
-		if (this->_channels[index].getId() == channelId)
-			return &this->_channels[index];
+		if (this->_clients[index].getFd() == clientFd)
+			return &this->_clients[index];
 	}
+	
 	return NULL;
-}*/
+}
 
-const std::vector<Channel> Server::getChannels(void) const
+std::vector<Channel> Server::getChannels(void) const
 {
 	return this->_channels;
 }
 
-const Channel* Server::getChannel(int channelId) const
+Channel* Server::getChannel(int channelId)
 {
 	for (std::size_t index = 0; index < this->_channels.size(); index++)
 	{

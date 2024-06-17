@@ -3,6 +3,7 @@
 Source to help: https://beej.us/guide/bgnet/pdf/bgnet_a4_c_1.pdf
                 https://datatracker.ietf.org/doc/html/rfc2812
                 https://medium.com/@afatir.ahmedfatir/small-irc-server-ft-irc-42-network-7cee848de6f9
+                https://modern.ircdocs.horse/#rplwelcome-001
 
 Client: id, username, nickname, addresse, id channel actuel
   -> Client(...), ~Client(), join(int channelId), leave(int channelId),
@@ -38,3 +39,8 @@ netcat:
     If one of those steps went wrong, you have to restart the connexion process.
     Otherwise well played you are connected to the server!
     To use commands now, you have to follow the syntax above.
+
+COMANDE:  -/authenticate (std::string password) ---> set nickname et username to "Client 'fd'"
+          -/help  ----> Donne la liste de toute les commande possible
+          -/invite (std::string username) ----> If channel mode is set to i
+          -JOIN (std::string channel_name) ---> To join / create a channel

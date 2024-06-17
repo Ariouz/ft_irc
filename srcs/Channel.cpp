@@ -1,12 +1,12 @@
 #include "Channel.hpp"
 
-Channel::Channel(const Server& server) 
+Channel::Channel(Server& server) 
 {
     int id = 0;
     while (server.getChannel(id) != NULL)
         id++;
     this->_id = id;
-    this->_settings = ChannelSettings();
+    //this->_settings = ChannelSettings();
 }
 
 Channel::~Channel() 
@@ -19,10 +19,10 @@ int Channel::getId() const
     return this->_id;
 }
 
-const ChannelSettings& Channel::getSettings(void) const
+/*const ChannelSettings& Channel::getSettings(void) const
 {
     return this->_settings;
-}
+}*/
 
 void Channel::addClient(const Client& client)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laguigue <laguigue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 14:51:13 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/15 14:55:08 by laguigue         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:09:41 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_irc.hpp"
+#include "ft_irc.hpp"
 
 int	ft_stoi(const std::string& string)
 {

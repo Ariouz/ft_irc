@@ -3,10 +3,14 @@ CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
 INCLUDES = -I./includes
 
-SRCS =	srcs/main.cpp\
-		srcs/Client.cpp\
-		srcs/Server.cpp\
-		srcs/utils.cpp
+SRCS =	$(addprefix srcs/, \
+	main.cpp \
+	Client.cpp \
+	Server.cpp \
+	Channel.cpp \
+	ChannelSettings.cpp \
+	utils.cpp \
+)
 
 OBJS = $(SRCS:.cpp=.o)
 

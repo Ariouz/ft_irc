@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_irc.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laguigue <laguigue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:14 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/15 23:27:20 by laguigue         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:10:01 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include <fcntl.h>
 # include <poll.h>
 # include "Client.hpp"
+# include "Channel.hpp"
 # include "Server.hpp"
 //# include "Channel.hpp"
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laguigue <laguigue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/15 23:26:43 by laguigue         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:34:44 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Server.hpp"
+#include "Server.hpp"
 
 Server::Server(std::string port, std::string pass)
 {
@@ -92,7 +92,7 @@ void	Server::loop(void)
 			}
 			else
 			{
-				//std::cout << "Accept Data" << std::endl;
+				std::cout << "Accept Data" << std::endl;
 				this->acceptData(this->_polls[index].fd);
 			}
 		}
@@ -223,6 +223,12 @@ void	Server::clearClient(int fd)
 	}
 }
 
+void Server::createChannel(void)
+{
+	Channel channel = Channel(*this);
+	this->_channels.push_back(channel);
+}
+
 void	Server::setPassword(std::string pass)
 {
 	this->_password = pass;
@@ -251,4 +257,34 @@ int		Server::getServerFd(void) const
 const std::string&	Server::getPassword(void) const
 {
 	return (this->_password);
+}
+
+const std::vector<Client> Server::getClients(void) const
+{
+	return this->_clients;
+}
+
+/*const Channel* Server::getChannel(int channelId) const
+{
+	for (std::size_t index = 0; index < this->_channels.size(); index++)
+	{
+		if (this->_channels[index].getId() == channelId)
+			return &this->_channels[index];
+	}
+	return NULL;
+}*/
+
+const std::vector<Channel> Server::getChannels(void) const
+{
+	return this->_channels;
+}
+
+const Channel* Server::getChannel(int channelId) const
+{
+	for (std::size_t index = 0; index < this->_channels.size(); index++)
+	{
+		if (this->_channels[index].getId() == channelId)
+			return &this->_channels[index];
+	}
+	return NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laguigue <laguigue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/15 23:27:46 by laguigue         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:23:42 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ft_irc.hpp"
 class Client;
 
-//class Channel;
+class Channel;
 
 class Server
 {
@@ -25,7 +25,7 @@ class Server
 		int							_serverFd;
 		std::string					_password;
 		std::vector<Client>			_clients;
-		//std::vector<Channel>		_channels;
+		std::vector<Channel>		_channels;
 		std::vector<struct pollfd>	_polls;
 
 	public:
@@ -45,9 +45,14 @@ class Server
 		void					setPort(int port);
 		void					setServerFd(int fd);
 
+		void					createChannel(void);
+
 		int						getPort(void) const;
 		int						getServerFd(void) const;
 		const std::string&		getPassword(void) const;
+		const Channel* 			getChannel(int channelId) const;
+		const std::vector<Client> getClients(void) const;
+		const std::vector<Channel> getChannels(void) const;
 };
 
 #endif

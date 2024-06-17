@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 20:16:30 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:45:24 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,24 +185,11 @@ void	Server::acceptData(int fd)
             }
         }
     }
-	std::cout << client->getSendBuffer() << " ----- " << client->getFd() << std::endl;
 }
 
 void	Server::handlePollout(int fd)
 {
-	Client *client = getClient(fd);
-	if( !client){
-		//std::cout << "client null for " << fd << std::endl;
-		return;
-	}
-	//std::cout << "Pollout for " << client->getFd() << std::endl;
-	if (client->getSendBuffer().empty()){
-		//std::cout <<"empty buffer " << std::endl;
-		return ;
-	}
-	int sent  = send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
-	std::cout << "sent: " << sent << std::endl;
-	client->getSendBuffer().clear();
+	(void) fd;
 }	
 
 void	Server::closeFd(void)

@@ -29,6 +29,10 @@ void CapCommand::execute(const std::vector<std::string> args, Channel* channel, 
         if (authResponse == false)
         {
             client->setSendBuffer(Message::ERR_SASLFAIL( client->getUsername() ));
+            send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
+            client->getSendBuffer().clear();
+            std::cout << "Auth ended error" << std::endl;
+            server.clearClient(client->getFd());
             return ;
         }
         std::cout << "Auth ended" << std::endl;

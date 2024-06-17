@@ -36,8 +36,6 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
         std::cout << "Auth ended success" << std::endl;
         client->setAuthStatus(AUTH_OK);
         client->setSendBuffer(Message::RPL_WELCOME(*client));
-        /*std::cout << client->getFd() << " client buffer: " << client->getSendBuffer() << std::endl;
         send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
-        client->getSendBuffer().clear();*/
     }
 }

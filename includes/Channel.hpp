@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:25:23 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/17 13:48:32 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:33:28 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define CHANNEL_HPP
 
 # include "ft_irc.hpp"
-# include "ChannelSettings.hpp"
 
 class Client;
 class Server;
-//class ChannelSettings;
+class ChannelSettings;
 
 class Channel
 {
@@ -39,7 +38,7 @@ class Channel
 		void 					removeOperator(int operatorFd);
 
 		int 					getId() const;
-		//const ChannelSettings& 	getSettings(void) const;
+		//ChannelSettings* 		getSettings(void);
 		bool 					isOperator(int clientFd) const;
 };
 

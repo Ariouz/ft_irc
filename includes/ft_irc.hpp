@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_irc.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:14 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 10:10:01 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:06:55 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,21 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <poll.h>
+
+# include "Message.hpp"
+
 # include "Client.hpp"
 # include "Channel.hpp"
 # include "Server.hpp"
-//# include "Channel.hpp"
+# include "Channel.hpp"
 
 //	Simply for signal
 extern bool		server_signal;
 
 /*			Function usefull for the project					*/
 
-int	ft_stoi(const std::string& string);
+int	                        ft_stoi(const std::string& string);
+std::vector<std::string>    splitToVector(const std::string& str);
+std::vector<std::string>    splitByCr(const std::string& input);
 
 #endif

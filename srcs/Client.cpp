@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 10:09:32 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:11:09 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client() {}
+Client::Client() : _authStatus(AUTH_INIT) {}
 
 Client::~Client() {}
 
@@ -41,6 +41,11 @@ void	Client::setSendBuffer(std::string buffer)
 	this->_sendBuffer = buffer;
 }
 
+void Client::setAuthStatus(int auth)
+{
+	this->_authStatus = auth;
+}
+
 int		Client::getFd(void) const
 {
 	return (this->_fd);
@@ -64,4 +69,14 @@ const std::string&	Client::getIpAddr(void) const
 std::string&	Client::getSendBuffer(void)
 {
 	return (this->_sendBuffer);
+}
+
+bool	Client::isAuthenticated(void) const
+{
+	return this->_authStatus == AUTH_OK;
+}
+
+int		Client::getAuthStatus(void) const
+{
+	return this->_authStatus;
 }

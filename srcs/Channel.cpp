@@ -1,5 +1,7 @@
 #include "Channel.hpp"
 
+# include "ChannelSettings.hpp"
+
 Channel::Channel(Server& server) 
 {
     int id = 0;
@@ -11,7 +13,6 @@ Channel::Channel(Server& server)
 
 Channel::~Channel() 
 {
-    //delete this->_settings;
 }
 
 int Channel::getId() const
@@ -19,9 +20,9 @@ int Channel::getId() const
     return this->_id;
 }
 
-/*const ChannelSettings& Channel::getSettings(void) const
+/*ChannelSettings* Channel::getSettings(void)
 {
-    return this->_settings;
+    return &this->_settings;
 }*/
 
 void Channel::addClient(const Client& client)

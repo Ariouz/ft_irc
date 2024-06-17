@@ -1,6 +1,6 @@
 NAME = ircserv
 CC = c++
-CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98 -g
 INCLUDES = -I./includes
 
 SRCS =	$(addprefix srcs/, \
@@ -10,6 +10,15 @@ SRCS =	$(addprefix srcs/, \
 	Channel.cpp \
 	ChannelSettings.cpp \
 	utils.cpp \
+	Message.cpp \
+) $(addprefix srcs/commands/, \
+	Command.cpp \
+	CommandManager.cpp \
+	other/CapCommand.cpp \
+	member/NickCommand.cpp \
+	member/PassCommand.cpp \
+	member/UserCommand.cpp \
+	operator/ModeCommand.cpp \
 )
 
 OBJS = $(SRCS:.cpp=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 14:51:13 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/17 10:09:41 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:14:20 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,35 @@ int	ft_stoi(const std::string& string)
 	ss >> result;
 
 	return (result);
+}
+
+std::vector<std::string> splitToVector(const std::string& str)
+{
+    std::vector<std::string> result;
+    std::istringstream iss(str);
+    std::string word;
+
+    while (iss >> word) {
+        result.push_back(word);
+    }
+
+    return result;
+}
+
+std::vector<std::string> splitByCr(const std::string& input)
+{
+    std::vector<std::string> result;
+    std::istringstream iss(input);
+    std::string line;
+
+    while (std::getline(iss, line, '\n'))
+    {
+        if (!line.empty() && line[line.size() - 1] == '\r')
+        {
+            line.resize(line.size() - 1);
+        }
+        result.push_back(line);
+    }
+
+    return result;
 }

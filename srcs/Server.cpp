@@ -3,25 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 14:12:09 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:16:30 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+# include "Server.hpp"
+# include "Client.hpp"
+# include "commands/CommandManager.hpp"
 
 Server::Server(std::string port, std::string pass)
 {
 	this->_serverFd = -1;
 	this->_port = ft_stoi(port);
 	this->_password = pass;
+	this->_commandManager = new CommandManager();
+	this->_commandManager->registerAll();
 }
 
 Server::~Server(void)
 {
 	this->closeFd();
+	delete this->_commandManager;
 }
 
 void	Server::serverInit(void)
@@ -144,8 +149,6 @@ void	Server::acceptClient(void)
 
 }
 
-# define CMD(user) ("Hello " user)
-
 void	Server::acceptData(int fd)
 {
 	char	buffer[1024];
@@ -157,9 +160,6 @@ void	Server::acceptData(int fd)
 
 	std::cout << buffer << std::endl;
 
-
-	
-
 	if (data <= 0)
 	{
 		std::cout << "Client " << fd << " disconnected" << std::endl;
@@ -168,45 +168,47 @@ void	Server::acceptData(int fd)
 	}
 
 	buffer[1023] = '\0';
-	std::string test = buffer;
-
-	Client* client = this->getClient(fd);
-	std::cout << client->getFd();
-
-		//"001 <client> :Welcome to the <networkname> Network, <nick>[!<user>@<host>]\r\n"
 	
-	client->setSendBuffer(CMD("test"));
-	std::cout << client->getSendBuffer();
+	std::vector<std::string> lines = splitByCr(buffer);
+    Client* client = getClient(fd);
+
+    for (std::size_t index = 0; index < lines.size(); ++index) {
+        std::cout << "checking command " << lines[index] << "..." << std::endl;
+        
+        if (this->_commandManager->isCommand(lines[index]) == 1) {
+            std::cout << "Is command: yes" << std::endl;
+            
+            if (client) {
+                this->_commandManager->execute(lines[index], client, 0, *this);
+            } else {
+                std::cerr << "Error: getClient returned null for fd " << fd << std::endl;
+            }
+        }
+    }
+	std::cout << client->getSendBuffer() << " ----- " << client->getFd() << std::endl;
 }
-
-/*
-	func replace(msg, client, server)
-		return msg.replace("<client>"m client) . replace:<server>, "server")
-
-
-		clients {0, 1, 2, 3, 4} //
-		client[1] = null;
-		clients {0, 2, 3, 4}
-*/
 
 void	Server::handlePollout(int fd)
 {
-	Client* client = this->getClient(fd);
-	if (client->getSendBuffer().empty()) 
-	{
-		//std::cout << "empty buffer" << std::endl;
+	Client *client = getClient(fd);
+	if( !client){
+		//std::cout << "client null for " << fd << std::endl;
+		return;
+	}
+	//std::cout << "Pollout for " << client->getFd() << std::endl;
+	if (client->getSendBuffer().empty()){
+		//std::cout <<"empty buffer " << std::endl;
 		return ;
 	}
-	std::cout << client->getFd() << std::endl;
-	std::cout << client->getSendBuffer() << std::endl;
-	send(fd, client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
+	int sent  = send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
+	std::cout << "sent: " << sent << std::endl;
 	client->getSendBuffer().clear();
 }	
 
 void	Server::closeFd(void)
 {
 	for (std::size_t index = 0; index < this->_clients.size(); index++)
-	{		
+	{	
 		close(this->_clients[index].getFd());
 		std::cout << "Client " << this->_clients[index].getFd() << " have been closed" << std::endl;
 	}
@@ -238,7 +240,14 @@ void	Server::clearClient(int fd)
 	}
 }
 
-void Server::createChannel(void)
+bool	Server::checkAuth(Client& client)
+{
+	if (client.getAuthStatus() == AUTH_ERR) return false;
+	if (client.getAuthStatus() != AUTH_OK && client.getAuthStatus() != AUTH_USER) return false;
+	return true;
+}
+
+void	Server::createChannel(void)
 {
 	Channel channel = Channel(*this);
 	this->_channels.push_back(channel);
@@ -303,4 +312,9 @@ Channel* Server::getChannel(int channelId)
 			return &this->_channels[index];
 	}
 	return NULL;
+}
+
+CommandManager* Server::getCommandManager(void)
+{
+	return this->_commandManager;
 }

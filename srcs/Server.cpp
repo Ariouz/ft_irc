@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 13:59:05 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:12:09 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,10 @@ void	Server::acceptData(int fd)
 	func replace(msg, client, server)
 		return msg.replace("<client>"m client) . replace:<server>, "server")
 
+
+		clients {0, 1, 2, 3, 4} //
+		client[1] = null;
+		clients {0, 2, 3, 4}
 */
 
 void	Server::handlePollout(int fd)

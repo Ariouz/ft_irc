@@ -14,7 +14,6 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
     if (args.size() == 0) return ;
 
     client->setUsername(args[0]);
-    std::cout << "Username set to " + args[0] << std::endl;
 
     if(!client->isAuthenticated())
     {

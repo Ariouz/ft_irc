@@ -1,0 +1,53 @@
+<< CAP LS
+<< PASS pass
+<< NICK gurousta
+<< USER gurousta gurousta localhost :Guillaume Roustan
+>> 001 gurousta :Welcome to the ft_irc Network, gurousta
+<< MODE gurousta +i
+>> 501 gurousta :Unknown MODE flag
+<< PING localhost
+>> PONG localhost
+--> lag pong
+<< PING localhost
+>> PONG localhost
+--> lag pong
+<< NICK hello1
+<< NICK hello1
+<< NICK hello1
+<< NICK hello1
+<< NICK hello1
+<< NICK hello1
+<< NICK hello1
+<< PING localhost
+>> PONG localhost
+--> lag pong
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< JOIN #test
+>> gurousta JOIN #test
+>> 332 gurousta #test :Default channel topic
+>> 353 gurousta = #test :@gurousta
+>> 366 gurousta #test :End of /NAMES list
+<< MODE #test
+>> 501 gurousta :Unknown MODE flag
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< PRIVMSG #test :ff
+<< PRIVMSG #test :fefe
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< NICK hello
+<< PRIVMSG #test :fe
+<< PRIVMSG #test :fe
+<< PRIVMSG #test :fe
+<< PRIVMSG #test :fe
+<< NICK hello
+<< PRIVMSG #test :fefefe
+<< PRIVMSG #test :/quit
+<< QUIT :leaving

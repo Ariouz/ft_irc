@@ -98,13 +98,13 @@ std::string& Message::ERR_NONICKNAMEGIVEN(const std::string& username)
 std::string& Message::ERR_ERRONEUSNICKNAME(const std::string& username, const std::string& argv)
 {
     static std::string res;
-    res = "432 " + username + argv + " :Erroneus nickname/r/n";
+    res = "432 " + username + " " + argv + " :Erroneus nickname\r\n";
     return res;
 }
 
 std::string& Message::ERR_NICKNAMEINUSE(const std::string& username, const std::string& argv)
 {
     static std::string res;
-    res = "433 " + username + argv + " :Nickname is already in use\r\n";
+    res = "433 " + username + " " + argv + " :Nickname is already in use\r\n";
     return (res);
 }

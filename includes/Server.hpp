@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 14:34:36 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:20:40 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ class Server
 		Channel* 				getChannel(int channelId);
 		Channel* 				getChannelByName(const std::string& name);
 		CommandManager& 		getCommandManager(void);
-		std::vector<Client> 	getClients(void) const;
+		std::vector<Client>& 	getClients(void);
 		std::vector<Channel*> 	getChannels(void) const;
 		
 		

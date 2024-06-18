@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:25:23 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/18 14:56:22 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:10:21 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ class Channel
 		void 						addClient(Client* client);
 		void 						removeClient(int clientFd);
 	
-		void 						addOperator(Client& ope);
+		void 						addOperator(Client* ope);
 		void 						removeOperator(int operatorFd);
 	
-		void						addWhitelisted(Client& client);
+		void						addWhitelisted(Client* client);
 		void						removeWhitelisted(int clientFd);
 		bool						isWhitelisted(int clientFd) const;
 	

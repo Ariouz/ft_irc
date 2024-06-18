@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 14:35:15 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:00:31 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void	Server::clearClient(int fd)
 	{
 		if (this->_clients[index].getFd() == fd)
 		{
+			this->_clients[index].leaveAll(*this);
 			close(this->_clients[index].getFd());
 			this->_clients.erase(this->_clients.begin() + index);
 		}

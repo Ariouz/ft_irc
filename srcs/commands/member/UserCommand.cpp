@@ -13,6 +13,13 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
     (void) channel;
     if (args.size() == 0) return ;
 
+    if (client->isAuthenticated())
+    {
+        client->setSendBuffer(Message::ERR_ALREADYREGISTERED(client->getUsername()));
+        sendBuffer(*client);
+        return ;
+    }
+
     client->setUsername(args[0]);
 
     if(!client->isAuthenticated())

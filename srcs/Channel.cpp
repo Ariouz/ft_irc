@@ -42,9 +42,9 @@ void Channel::removeClient(int clientFd)
     }
 }
 
-void Channel::addOperator(Client& ope)
+void Channel::addOperator(Client* ope)
 {
-    this->_operators.push_back(&ope);
+    this->_operators.push_back(ope);
 }
 
 void Channel::removeOperator(int operatorFd)
@@ -69,9 +69,9 @@ bool Channel::isOperator(int clientFd) const
     return false;
 }
 
-void Channel::addWhitelisted(Client& client)
+void Channel::addWhitelisted(Client* client)
 {
-    this->_whitelist.push_back(&client);
+    this->_whitelist.push_back(client);
 }
 
 void Channel::removeWhitelisted(int clientFd)

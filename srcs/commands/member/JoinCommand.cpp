@@ -32,7 +32,7 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
         sendBuffer(*client);*/
         server.createChannel(args[0]);
         channel = server.getChannelByName(args[0]);
-        channel->addOperator(*client);
+        channel->addOperator(client);
         std::cout << "Created channel " + args[0] << std::endl;
     }
 
@@ -75,6 +75,12 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
         client->setSendBuffer(Message::RPL_NAMREPLY(*channel->getClients()[index], *channel));
+        /*Client *target = channel->getClients()[index];
+
+        std::string prefix = channel->isOperator(target->getFd()) ? "@" : "";
+        std::string res = "353 " + target->getUsername()+ " = " + channel->getName() + " :" +prefix + client->getNickname() + "\r\n";
+
+        client->setSendBuffer(res);*/
         sendBuffer(*client);
     }
 

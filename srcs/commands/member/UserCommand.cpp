@@ -13,6 +13,12 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
     (void) channel;
     if (args.size() == 0) return ;
 
+    if (client->isAuthenticated())
+    {
+        // todo error messsage
+        return ;
+    }
+
     client->setUsername(args[0]);
 
     if(!client->isAuthenticated())

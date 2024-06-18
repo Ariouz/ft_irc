@@ -25,8 +25,7 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
         if (authResponse == false)
         {
             client->setSendBuffer(Message::ERR_SASLFAIL( client->getUsername() ));
-            send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
-            client->getSendBuffer().clear();
+            sendBuffer(*client);
             std::cout << "Auth ended error" << std::endl;
             server.clearClient(client->getFd());
             return ;
@@ -35,6 +34,6 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
         std::cout << "Auth ended success" << std::endl;
         client->setAuthStatus(AUTH_OK);
         client->setSendBuffer(Message::RPL_WELCOME(*client));
-        send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
+        sendBuffer(*client);
     }
 }

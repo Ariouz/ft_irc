@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 20:45:24 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:46:25 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ Server::Server(std::string port, std::string pass)
 
 Server::~Server(void)
 {
+	for (std::size_t index = 0; index < this->_channels.size(); index++)
+		delete this->_channels[index];
 	this->closeFd();
 	delete this->_commandManager;
 }
@@ -173,11 +175,7 @@ void	Server::acceptData(int fd)
     Client* client = getClient(fd);
 
     for (std::size_t index = 0; index < lines.size(); ++index) {
-        std::cout << "checking command " << lines[index] << "..." << std::endl;
-        
         if (this->_commandManager->isCommand(lines[index]) == 1) {
-            std::cout << "Is command: yes" << std::endl;
-            
             if (client) {
                 this->_commandManager->execute(lines[index], client, 0, *this);
             } else {
@@ -234,9 +232,9 @@ bool	Server::checkAuth(Client& client)
 	return true;
 }
 
-void	Server::createChannel(void)
+void	Server::createChannel(const std::string& name)
 {
-	Channel channel = Channel(*this);
+	Channel* channel = new Channel(*this, name);
 	this->_channels.push_back(channel);
 }
 
@@ -286,7 +284,7 @@ Client* Server::getClient(int clientFd)
 	return NULL;
 }
 
-std::vector<Channel> Server::getChannels(void) const
+std::vector<Channel*> Server::getChannels(void) const
 {
 	return this->_channels;
 }
@@ -295,13 +293,23 @@ Channel* Server::getChannel(int channelId)
 {
 	for (std::size_t index = 0; index < this->_channels.size(); index++)
 	{
-		if (this->_channels[index].getId() == channelId)
-			return &this->_channels[index];
+		if (this->_channels[index]->getId() == channelId)
+			return this->_channels[index];
 	}
 	return NULL;
 }
 
-CommandManager* Server::getCommandManager(void)
+Channel* Server::getChannelByName(const std::string& name)
 {
-	return this->_commandManager;
+	for (std::size_t index = 0; index < this->_channels.size(); index++)
+	{
+		if (this->_channels[index]->getName().compare(name) == 0)
+			return this->_channels[index];
+	}
+	return NULL;
+}
+
+CommandManager& Server::getCommandManager(void)
+{
+	return *this->_commandManager;
 }

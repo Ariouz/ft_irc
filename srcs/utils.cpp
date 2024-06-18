@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 14:51:13 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/17 19:14:20 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:54:36 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ std::vector<std::string> splitByCr(const std::string& input)
     }
 
     return result;
+}
+
+void    sendBuffer(Client& client)
+{
+    send(client.getFd(), client.getSendBuffer().c_str(), client.getSendBuffer().size(), 0);
+    client.getSendBuffer().clear();
 }

@@ -19,7 +19,6 @@ void CapCommand::execute(const std::vector<std::string> args, Channel* channel, 
     if (args[0].compare("LS") == 0)
     {
         if (client->isAuthenticated()) return ;
-        std::cout << "Auth started" << std::endl;
         client->setAuthStatus(AUTH_PASS);
     }
 
@@ -29,14 +28,12 @@ void CapCommand::execute(const std::vector<std::string> args, Channel* channel, 
         if (authResponse == false)
         {
             client->setSendBuffer(Message::ERR_SASLFAIL( client->getUsername() ));
-            send(client->getFd(), client->getSendBuffer().c_str(), client->getSendBuffer().size(), 0);
-            client->getSendBuffer().clear();
-            std::cout << "Auth ended error" << std::endl;
+            sendBuffer(*client);
             server.clearClient(client->getFd());
             return ;
         }
-        std::cout << "Auth ended" << std::endl;
         client->setAuthStatus(AUTH_OK);
         client->setSendBuffer(Message::RPL_WELCOME(*client));
+        sendBuffer(*client);
     }
 }

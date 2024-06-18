@@ -1,9 +1,12 @@
 # include "commands/CommandManager.hpp"
 
 # include "commands/other/CapCommand.hpp"
+# include "commands/other/PingCommand.hpp"
+# include "commands/other/PongCommand.hpp"
 # include "commands/member/PassCommand.hpp"
 # include "commands/member/NickCommand.hpp"
 # include "commands/member/UserCommand.hpp"
+# include "commands/member/JoinCommand.hpp"
 # include "commands/operator/ModeCommand.hpp"
 
 CommandManager::CommandManager() {}
@@ -23,11 +26,14 @@ void    CommandManager::registerAll()
     this->_commands.push_back(new NickCommand("NICK"));
     this->_commands.push_back(new UserCommand("USER"));
     this->_commands.push_back(new ModeCommand("MODE"));
+    this->_commands.push_back(new PingCommand("PING"));
+    this->_commands.push_back(new PongCommand("PONG"));
+    this->_commands.push_back(new JoinCommand("JOIN"));
 }
 
 bool    CommandManager::isCommand(const std::string& req)
 {
-    std::cout << "check command for " + req << " -> " << (getCommand(splitToVector(req)[0]) != NULL) << std::endl;
+    std::cout << "Check command for " + req << " -> " << (getCommand(splitToVector(req)[0]) != NULL) << std::endl;
     return getCommand(splitToVector(req)[0]) != NULL;
 }
 
@@ -42,11 +48,9 @@ void CommandManager::execute(const std::string& req, Client* client, Channel* ch
     std::vector<std::string>    args = splitToVector(req);
     std::string                 name = args[0];
     args.erase(args.begin());
-
     Command* command = getCommand(name);
-    std::cout << "will execute " + command->getName() + " with args[0] " + args[0] << std::endl;
     command->execute(args, channel, client, server);
-    std::cout << "executed for client with buffer " << client->getSendBuffer() << std::endl;
+    args.clear();
 }
 
 Command* CommandManager::getCommand(const std::string& name)

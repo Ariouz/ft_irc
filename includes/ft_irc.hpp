@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_irc.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:14 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 19:06:55 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:54:43 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ extern bool		server_signal;
 int	                        ft_stoi(const std::string& string);
 std::vector<std::string>    splitToVector(const std::string& str);
 std::vector<std::string>    splitByCr(const std::string& input);
+void                        sendBuffer(Client& client);
 
 #endif

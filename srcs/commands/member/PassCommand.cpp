@@ -17,9 +17,7 @@ void PassCommand::execute(const std::vector<std::string> args, Channel* channel,
     if (client->getAuthStatus() != AUTH_PASS
         || args[0].compare(server.getPassword()) != 0){
         client->setAuthStatus(AUTH_ERR);
-        std::cout << "Pass is invalid" << std::endl;
         return ;
     }
-    std::cout << "Pass is valid" << std::endl;
     client->setAuthStatus(AUTH_NICK);
 }

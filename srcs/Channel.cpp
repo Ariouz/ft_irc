@@ -1,18 +1,18 @@
-#include "Channel.hpp"
-
+# include "Channel.hpp"
 # include "ChannelSettings.hpp"
 
-Channel::Channel(Server& server) 
+Channel::Channel(Server& server, const std::string& name) : _name(name)
 {
     int id = 0;
     while (server.getChannel(id) != NULL)
         id++;
     this->_id = id;
-    //this->_settings = ChannelSettings();
+    this->_settings = new ChannelSettings();
 }
 
 Channel::~Channel() 
 {
+    delete this->_settings;
 }
 
 int Channel::getId() const
@@ -20,10 +20,10 @@ int Channel::getId() const
     return this->_id;
 }
 
-/*ChannelSettings* Channel::getSettings(void)
+ChannelSettings* Channel::getSettings(void)
 {
-    return &this->_settings;
-}*/
+    return this->_settings;
+}
 
 void Channel::addClient(const Client& client)
 {
@@ -67,4 +67,41 @@ bool Channel::isOperator(int clientFd) const
             return true;
     }
     return false;
+}
+
+void Channel::addWhitelisted(const Client& client)
+{
+    this->_whitelist.push_back(client);
+}
+
+void Channel::removeWhitelisted(int clientFd)
+{
+    for (std::size_t index = 0; index < this->_whitelist.size(); index++)
+    {
+        if (this->_whitelist[index].getFd() == clientFd)
+        {
+            this->_whitelist.erase(this->_whitelist.begin() + index);
+            break ;
+        }
+    }
+}
+
+bool Channel::isWhitelisted(int clientFd) const
+{
+    for (std::size_t index = 0; index < this->_whitelist.size(); index++)
+    {
+        if (this->_whitelist[index].getFd() == clientFd)
+            return true;
+    }
+    return false;
+}
+
+const std::string&  Channel::getName(void) const
+{
+    return this->_name;
+}
+
+std::vector<Client> Channel::getClients(void) 
+{
+    return this->_clients;
 }

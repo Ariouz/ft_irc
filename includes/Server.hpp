@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 18:14:26 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:38:25 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Server
 		int							_serverFd;
 		std::string					_password;
 		std::vector<Client>			_clients;
-		std::vector<Channel>		_channels;
+		std::vector<Channel*>		_channels;
 		std::vector<struct pollfd>	_polls;
 		CommandManager*				_commandManager;
 
@@ -47,16 +47,17 @@ class Server
 		void					setPort(int port);
 		void					setServerFd(int fd);
 
-		void					createChannel(void);
+		void					createChannel(const std::string& name);
 
 		int						getPort(void) const;
 		int						getServerFd(void) const;
 		const std::string&		getPassword(void) const;
 		Client* 				getClient(int clientFd);
 		Channel* 				getChannel(int channelId);
-		CommandManager* 		getCommandManager(void);
+		Channel* 				getChannelByName(const std::string& name);
+		CommandManager& 		getCommandManager(void);
 		std::vector<Client> 	getClients(void) const;
-		std::vector<Channel> 	getChannels(void) const;
+		std::vector<Channel*> 	getChannels(void) const;
 		
 		
 		bool				checkAuth(Client& client);

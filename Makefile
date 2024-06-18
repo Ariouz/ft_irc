@@ -15,9 +15,12 @@ SRCS =	$(addprefix srcs/, \
 	Command.cpp \
 	CommandManager.cpp \
 	other/CapCommand.cpp \
+	other/PingCommand.cpp \
+	other/PongCommand.cpp \
 	member/NickCommand.cpp \
 	member/PassCommand.cpp \
 	member/UserCommand.cpp \
+	member/JoinCommand.cpp \
 	operator/ModeCommand.cpp \
 )
 

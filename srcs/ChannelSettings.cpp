@@ -1,6 +1,12 @@
 #include "ChannelSettings.hpp"
 
-ChannelSettings::ChannelSettings() {}
+ChannelSettings::ChannelSettings() 
+{
+    this->_topic = "Default channel topic";
+    this->_channelPassword = "";
+    this->setTopicLocked(true);
+    this->setInviteOnly(false);
+}
 
 ChannelSettings::~ChannelSettings() {}
 

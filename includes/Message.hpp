@@ -13,6 +13,11 @@ class Message
         static std::string& RPL_WELCOME(const Client& client);
         static std::string& RPL_TOPIC(const std::string& username, const std::string& channel, const std::string& topic);
 
+        //NICK command error
+        static std::string& ERR_NONICKNAMEGIVEN(const std::string& username);
+        static std::string& ERR_ERRONEUSNICKNAME(const std::string& username, const std::string& argv);
+        static std::string& ERR_NICKNAMEINUSE(const std::string& username, const std::string& argv);
+
         static std::string& ERR_SASLFAIL(const std::string& username);
         static std::string& ERR_NOPRIVS(const std::string& username, const std::string& privilege);
         static std::string& ERR_UMODEUNKNOWNFLAG(const std::string& username);
@@ -22,6 +27,7 @@ class Message
         static std::string& ERR_BADCHANNELKEY(const std::string& username, const std::string& channel);
         static std::string& RPL_NAMREPLY(const Client& client, const Channel& channel);
         static std::string& RPL_ENDOFNAMES(const Client& client, const Channel& channel);
+        
 };
 
 #endif

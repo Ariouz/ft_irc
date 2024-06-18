@@ -69,3 +69,24 @@ std::string& Message::RPL_ENDOFNAMES(const Client& client, const Channel& channe
     static std::string res = "366 "+client.getUsername()+ " " + channel.getName() + " :End of /NAMES list\r\n";
     return res;
 }
+
+std::string& ERR_NONICKNAMEGIVEN(const std::string& username)
+{
+    static std::string  res;
+    res = "431 " + username + " :No nickname given\r\n";
+    return (res);
+}
+
+std::string& ERR_ERRONEUSNICKNAME(const std::string& username, const std::string& argv)
+{
+    static std::string res;
+    res = "432 " + username + argv + " :Erroneus nickname/r/n";
+    return res;
+}
+
+std::string& ERR_NICKNAMEINUSE(const std::string& username, const std::string& argv)
+{
+    static std::string res;
+    res = "433 " + username + argv + " :Nickname is already in use\r\n";
+    return (res);
+}

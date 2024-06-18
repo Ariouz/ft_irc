@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:28 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 15:58:18 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:28:31 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ class Client
 		Client();
 		~Client();
 
-		void	setFd(int fd);
-		void	setUsername(std::string username);
-		void	setNickname(std::string nickname);
-		void	setIpAddr(std::string ipAddr);
-		void	setSendBuffer(std::string buffer);
-		void	setAuthStatus(int auth);
-		void	leaveAll(Server& server);
+		void				setFd(int fd);
+		void				setUsername(std::string username);
+		void				setNickname(std::string nickname);
+		void				setIpAddr(std::string ipAddr);
+		void				setSendBuffer(std::string buffer);
+		void				setAuthStatus(int auth);
+		void				leaveAll(Server& server);
 
 		int					getFd(void) const;
-		const std::string&	getUsername(void) const;
-		const std::string&	getNickname(void) const;
-		const std::string&	getIpAddr(void) const;
+		std::string&		getUsername(void);
+		std::string&		getNickname(void);
+		std::string&		getIpAddr(void);
 		std::string&		getSendBuffer(void);
 		int					getAuthStatus(void) const;
 		bool				isAuthenticated(void) const;

@@ -1,5 +1,6 @@
 #include "commands/member/JoinCommand.hpp"
 # include "ChannelSettings.hpp"
+# include "Client.hpp"
 
 JoinCommand::JoinCommand(const std::string& name) 
 {
@@ -74,16 +75,11 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
 
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
+        std::cout << "Loop index " << index << std::endl;
+        if (!channel->getClients()[index]) continue;
         client->setSendBuffer(Message::RPL_NAMREPLY(*channel->getClients()[index], *channel));
-        /*Client *target = channel->getClients()[index];
-
-        std::string prefix = channel->isOperator(target->getFd()) ? "@" : "";
-        std::string res = "353 " + target->getUsername()+ " = " + channel->getName() + " :" +prefix + client->getNickname() + "\r\n";
-
-        client->setSendBuffer(res);*/
         sendBuffer(*client);
     }
-
 
     client->setSendBuffer(Message::RPL_ENDOFNAMES(*client, *channel));
     sendBuffer(*client);

@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 16:00:22 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:28:40 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ int		Client::getFd(void) const
 	return (this->_fd);
 }
 
-const std::string&	Client::getUsername(void) const
+std::string&	Client::getUsername(void)
 {
 	return (this->_username);
 }
 
-const std::string&	Client::getNickname(void) const
+std::string&	Client::getNickname(void)
 {
 	return (this->_nickname);
 }
 
-const std::string&	Client::getIpAddr(void) const
+std::string&	Client::getIpAddr(void)
 {
 	return (this->_ipAddr);
 }

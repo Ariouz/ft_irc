@@ -19,7 +19,7 @@ class CommandManager
         bool        isCommand(const std::string& req);
 
     private:
-        std::vector<Command*> _commands; 
+        std::vector<Command*> _commands;
 
 };
 

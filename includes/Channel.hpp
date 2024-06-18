@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:25:23 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/18 15:10:21 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:24:53 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ class Channel
 		ChannelSettings* 			getSettings(void);
 		bool 						isOperator(int clientFd) const;
 		const std::string&			getName(void) const;
-		std::vector<Client*>		getClients(void);
+		std::vector<Client*>&		getClients(void);
 };
 
 #endif

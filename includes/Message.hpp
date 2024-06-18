@@ -10,7 +10,7 @@ class Channel;
 class Message
 {
     public:
-        static std::string& RPL_WELCOME(const Client& client);
+        static std::string& RPL_WELCOME(Client& client);
         static std::string& RPL_TOPIC(const std::string& username, const std::string& channel, const std::string& topic);
 
         //NICK command error
@@ -36,8 +36,10 @@ class Message
         static std::string& ERR_ALREADYREGISTERED(const std::string& username);
 
         // Liste des noms pour JOIN et NAMEs
-        static std::string& RPL_NAMREPLY(const Client& client, const Channel& channel);
-        static std::string& RPL_ENDOFNAMES(const Client& client, const Channel& channel);
+        static std::string& RPL_NAMREPLY(Client& client, const Channel& channel);
+        static std::string& RPL_ENDOFNAMES(Client& client, const Channel& channel);
+
+        static std::string& ERR_NOTEXTTOSEND(const std::string& username);
         
 };
 

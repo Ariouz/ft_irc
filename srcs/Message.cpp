@@ -3,7 +3,7 @@
 # include "Channel.hpp"
 # include "ChannelSettings.hpp"
 
-std::string& Message::RPL_WELCOME(const Client& client) 
+std::string& Message::RPL_WELCOME( Client& client) 
 {
     static std::string res;
     res = "001 " + client.getUsername() + " :Welcome to the ft_irc Network, " + client.getNickname() + "\r\n";
@@ -66,15 +66,23 @@ std::string& Message::RPL_TOPIC(const std::string& username, const std::string& 
     return res;
 }
 
-std::string& Message::RPL_NAMREPLY(const Client& client, const Channel& channel)
+std::string& Message::RPL_NAMREPLY(Client& client, const Channel& channel)
 {
+    (void) channel;
+    (void) client;
     static std::string res;
-    std::string prefix = channel.isOperator(client.getFd()) ? "@" : "";
-    res = "353 " + client.getUsername()+ " = " + channel.getName() + " :" +prefix + client.getNickname() + "\r\n";
+    std::string prefix = "";
+    //std::cout << "fd: " << client.getFd() << " \n";
+    //std::string prefix = channel.isOperator(client.getFd()) ? "@" : "";
+    //std::cout << client.getUsername() << std::endl;
+    /*std::cout << channel.getName() + " \n";
+    std::cout << prefix + " \n";
+    std::cout << "nickane:" + client.getNickname() + " \n";*/
+    res = "353 TEST = test :test\r\n";//"353 " + client.getUsername() + " = " + channel.getName() + " :" + prefix + client.getNickname() + "\r\n";
     return res;
 }
 
-std::string& Message::RPL_ENDOFNAMES(const Client& client, const Channel& channel)
+std::string& Message::RPL_ENDOFNAMES(Client& client, const Channel& channel)
 {
     static std::string res;
     res = "366 "+client.getUsername()+ " " + channel.getName() + " :End of /NAMES list\r\n";
@@ -106,5 +114,12 @@ std::string& Message::ERR_NICKNAMEINUSE(const std::string& username, const std::
 {
     static std::string res;
     res = "433 " + username + argv + " :Nickname is already in use\r\n";
+    return (res);
+}
+
+std::string& Message::ERR_NOTEXTTOSEND(const std::string& username)
+{
+    static std::string res;
+    res = "412 " + username + " :No text to send\r\n";
     return (res);
 }

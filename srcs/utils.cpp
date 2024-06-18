@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 14:51:13 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/18 13:49:27 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:42:27 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,15 @@ void    sendBuffer(Client& client)
 {
     send(client.getFd(), client.getSendBuffer().c_str(), client.getSendBuffer().size(), 0);
     client.getSendBuffer().clear();
+}
+
+std::string vectorToString(const std::vector<std::string> vec)
+{
+    std::string res = "";
+    for (std::size_t index = 0; index < vec.size(); index++)
+    {
+        res += vec[index] + " ";
+    }
+    if (res[res.size() - 1] == ' ') res = res.substr(0, res.size() - 1);
+    return res;
 }

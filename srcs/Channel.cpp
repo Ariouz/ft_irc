@@ -101,7 +101,7 @@ const std::string&  Channel::getName(void) const
     return this->_name;
 }
 
-std::vector<Client*> Channel::getClients(void) 
+std::vector<Client*>& Channel::getClients(void) 
 {
     return this->_clients;
 }

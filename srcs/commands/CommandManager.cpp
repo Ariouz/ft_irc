@@ -33,6 +33,8 @@ void    CommandManager::registerAll()
 
 bool    CommandManager::isCommand(const std::string& req)
 {
+    if (req.empty() || splitToVector(req)[0].empty())
+        return (false);
     std::cout << "Check command for " + req << " -> " << (getCommand(splitToVector(req)[0]) != NULL) << std::endl;
     return getCommand(splitToVector(req)[0]) != NULL;
 }

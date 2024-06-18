@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 12:46:25 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:35:15 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,6 @@ void	Server::loop(void)
 				this->acceptData(this->_polls[index].fd);
 			}
 		}
-
-		else if (this->_polls[index].revents & POLLOUT)
-		{
-			//std::cout << "POLLOUT event" << std::endl; ----> full spam....
-			this->handlePollout(this->_polls[index].fd);
-		}
-
-		else if (this->_polls[index].revents & POLLERR)
-		{
-			std::cout << "POLLER event" << std::endl;
-			//this->handlePoller();
-		}
 	}
 }
 
@@ -143,7 +131,7 @@ void	Server::acceptClient(void)
 	this->_clients.push_back(client);
 	
 	client_poll_fd.fd = client_socket_fd;
-	client_poll_fd.events = POLLIN | POLLOUT;
+	client_poll_fd.events = POLLIN;
 	client_poll_fd.revents = 0;
 	this->_polls.push_back(client_poll_fd);
 
@@ -183,12 +171,8 @@ void	Server::acceptData(int fd)
             }
         }
     }
+	std::cout << client->getNickname() << std::endl;
 }
-
-void	Server::handlePollout(int fd)
-{
-	(void) fd;
-}	
 
 void	Server::closeFd(void)
 {

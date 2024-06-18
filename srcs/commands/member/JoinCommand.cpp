@@ -60,7 +60,9 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
         }
     }
 
-    channel->addClient(*client);
+    std::cout << client->getNickname() << std::endl;
+
+    channel->addClient(client);
     client->setSendBuffer(client->getUsername() + " JOIN " + channel->getName() + "\r\n");
     sendBuffer(*client);
 
@@ -72,7 +74,7 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
 
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
-        client->setSendBuffer(Message::RPL_NAMREPLY(channel->getClients()[index], *channel));
+        client->setSendBuffer(Message::RPL_NAMREPLY(*channel->getClients()[index], *channel));
         sendBuffer(*client);
     }
 

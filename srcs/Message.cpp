@@ -29,19 +29,19 @@ std::string& Message::ERR_UMODEUNKNOWNFLAG(const std::string& username)
 
 std::string& Message::ERR_NEEDMOREPARAMS(const std::string& username, const std::string& cmd) 
 {
-    static std::string res = "461 "+username+" "+cmd+" :Not enough parameters\r\n";
+    static std::string res = "461 " + username + " "+cmd+" :Not enough parameters\r\n";
     return res;
 }
 
 std::string& Message::ERR_NOSUCHCHANNEL(const std::string& username, const std::string& channel)
 {
-    static std::string res = "403 "+username+ " " + channel + " :No such channel\r\n";
+    static std::string res = "403 " + username + " " + channel + " :No such channel\r\n";
     return res;
 }
 
 std::string& Message::ERR_INVITEONLYCHAN(const std::string& username, const std::string& channel)
 {
-    static std::string res = "473 "+username+ " " + channel + " :Cannot join channel (+i)\r\n";
+    static std::string res = "473 " + username + " " + channel + " :Cannot join channel (+i)\r\n";
     return res;
 }
 

@@ -25,7 +25,7 @@ ChannelSettings* Channel::getSettings(void)
     return this->_settings;
 }
 
-void Channel::addClient(const Client& client)
+void Channel::addClient(Client* client)
 {
     this->_clients.push_back(client);
 }
@@ -34,7 +34,7 @@ void Channel::removeClient(int clientFd)
 {
     for (std::size_t index = 0; index < this->_clients.size(); index++)
     {
-        if (this->_clients[index].getFd() == clientFd)
+        if (this->_clients[index]->getFd() == clientFd)
         {
             this->_clients.erase(this->_clients.begin() + index);
             break ;
@@ -42,16 +42,16 @@ void Channel::removeClient(int clientFd)
     }
 }
 
-void Channel::addOperator(const Client& ope)
+void Channel::addOperator(Client& ope)
 {
-    this->_operators.push_back(ope);
+    this->_operators.push_back(&ope);
 }
 
 void Channel::removeOperator(int operatorFd)
 {
     for (std::size_t index = 0; index < this->_operators.size(); index++)
     {
-        if (this->_operators[index].getFd() == operatorFd)
+        if (this->_operators[index]->getFd() == operatorFd)
         {
             this->_operators.erase(this->_operators.begin() + index);
             break ;
@@ -63,22 +63,22 @@ bool Channel::isOperator(int clientFd) const
 {
     for (std::size_t index = 0; index < this->_operators.size(); index++)
     {
-        if (this->_operators[index].getFd() == clientFd)
+        if (this->_operators[index]->getFd() == clientFd)
             return true;
     }
     return false;
 }
 
-void Channel::addWhitelisted(const Client& client)
+void Channel::addWhitelisted(Client& client)
 {
-    this->_whitelist.push_back(client);
+    this->_whitelist.push_back(&client);
 }
 
 void Channel::removeWhitelisted(int clientFd)
 {
     for (std::size_t index = 0; index < this->_whitelist.size(); index++)
     {
-        if (this->_whitelist[index].getFd() == clientFd)
+        if (this->_whitelist[index]->getFd() == clientFd)
         {
             this->_whitelist.erase(this->_whitelist.begin() + index);
             break ;
@@ -90,7 +90,7 @@ bool Channel::isWhitelisted(int clientFd) const
 {
     for (std::size_t index = 0; index < this->_whitelist.size(); index++)
     {
-        if (this->_whitelist[index].getFd() == clientFd)
+        if (this->_whitelist[index]->getFd() == clientFd)
             return true;
     }
     return false;
@@ -101,7 +101,7 @@ const std::string&  Channel::getName(void) const
     return this->_name;
 }
 
-std::vector<Client> Channel::getClients(void) 
+std::vector<Client*> Channel::getClients(void) 
 {
     return this->_clients;
 }

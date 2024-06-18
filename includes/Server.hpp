@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 12:38:25 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:34:36 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ class Server
 		void					clearClient(int fd);
 		void					acceptClient(void);
 		void					acceptData(int fd);
-		void					handlePollout(int fd);
-		void					handlePoller(int fd);
 
 		void					setPassword(std::string pass);
 		void					setPort(int port);

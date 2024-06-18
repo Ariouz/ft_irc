@@ -1,9 +1,0 @@
-Socket server have been created
-Socket server option set to SO_REUSEADDR
-Socket server set to NONBLOCK
-Socket server set to pasive mode
-Socket server is now listening up to 4096 clients
-Waiting to accept connection...
-
-Signal received!
-Server turned Down!

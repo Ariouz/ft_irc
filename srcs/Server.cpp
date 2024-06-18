@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 16:00:31 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:18:30 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ const std::string&	Server::getPassword(void) const
 	return (this->_password);
 }
 
-std::vector<Client> Server::getClients(void) const
+std::vector<Client>& Server::getClients(void)
 {
 	return this->_clients;
 }

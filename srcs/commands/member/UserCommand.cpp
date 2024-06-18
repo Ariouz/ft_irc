@@ -15,7 +15,8 @@ void UserCommand::execute(const std::vector<std::string> args, Channel* channel,
 
     if (client->isAuthenticated())
     {
-        // todo error messsage
+        client->setSendBuffer(Message::ERR_ALREADYREGISTERED(client->getUsername()));
+        sendBuffer(*client);
         return ;
     }
 

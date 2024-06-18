@@ -80,3 +80,10 @@ std::string& Message::RPL_ENDOFNAMES(const Client& client, const Channel& channe
     res = "366 "+client.getUsername()+ " " + channel.getName() + " :End of /NAMES list\r\n";
     return res;
 }
+
+std::string& Message::ERR_ALREADYREGISTERED(const std::string& username)
+{
+    static std::string res;
+    res = "462 "  + username + " :You may not reregister\r\n";
+    return res;
+}

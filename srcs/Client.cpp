@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/17 17:11:09 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:00:22 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
+#include "Server.hpp"
 
 Client::Client() : _authStatus(AUTH_INIT) {}
 
 Client::~Client() {}
+
+void	Client::leaveAll(Server& server)
+{
+	for (std::size_t index = 0; index < server.getChannels().size(); index++)
+	{
+		server.getChannels()[index]->removeClient(this->getFd());
+		server.getChannels()[index]->removeOperator(this->getFd());
+		server.getChannels()[index]->removeWhitelisted(this->getFd());
+	}
+}
 
 void	Client::setFd(int fd)
 {

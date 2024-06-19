@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/19 10:35:20 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:17:13 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ class Server
 		int						getServerFd(void) const;
 		const std::string&		getPassword(void) const;
 		Client* 				getClient(int clientFd);
+		Client* 				getClientByNickname(const std::string& name);
 		Channel* 				getChannel(int channelId);
 		Channel* 				getChannelByName(const std::string& name);
 		CommandManager& 		getCommandManager(void);

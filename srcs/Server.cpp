@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/19 11:49:15 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:17:22 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,16 @@ Client* Server::getClient(int clientFd)
 			return this->_clients[index];
 	}
 	
+	return NULL;
+}
+
+Client* Server::getClientByNickname(const std::string& name)
+{
+	for (std::size_t index = 0; index < this->_clients.size(); index++)
+	{
+		if (this->_clients[index]->getNickname().compare(name) == 0)
+			return this->_clients[index];
+	}
 	return NULL;
 }
 

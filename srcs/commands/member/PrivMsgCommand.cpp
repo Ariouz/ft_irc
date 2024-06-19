@@ -30,6 +30,13 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
             return ;
         }
 
+        if (!channel->isClient(client->getFd()))
+        {
+            client->setSendBuffer(Message::ERR_NOTONCHANNEL(client->getUsername(), channel->getName()));
+            sendBuffer(*client);
+            return ;
+        }
+
         std::vector<std::string> msgVec = args;
         msgVec.erase(msgVec.begin());
         std::string message = vectorToString(msgVec);
@@ -43,7 +50,19 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
     }
     else // Private message
     {
-        
+        Client *target = server.getClientByNickname(args[0]);
+        if (!target)
+        {
+            client->setSendBuffer(Message::ERR_NOSUCHNICK(client->getUsername(), args[0]));
+            sendBuffer(*client);
+            return ;
+        }
+
+        std::vector<std::string> msgVec = args;
+        msgVec.erase(msgVec.begin());
+        std::string message = vectorToString(msgVec);
+        target->setSendBuffer(":" + client->getNickname() + " PRIVMSG " + target->getNickname() + " " + message+ "\r\n");
+        sendBuffer(*target);
     }
 
 }

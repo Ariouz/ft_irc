@@ -129,3 +129,10 @@ std::string& Message::ERR_NOTONCHANNEL(const std::string& username, const std::s
     res = "442 "+username+ " " + channel + " :You're not on that channel\r\n";
     return res;
 }
+
+std::string& Message::ERR_NOSUCHNICK(const std::string& username, const std::string& nickname)
+{
+    static std::string res;
+    res = "401 "+username+ " " + nickname + " :No such nick/channel\r\n";
+    return res;
+}

@@ -17,6 +17,7 @@ class Message
         static std::string& ERR_NONICKNAMEGIVEN(const std::string& username);
         static std::string& ERR_ERRONEUSNICKNAME(const std::string& username, const std::string& argv);
         static std::string& ERR_NICKNAMEINUSE(const std::string& username, const std::string& argv);
+        static std::string& ERR_NOSUCHNICK(const std::string& username, const std::string& nickname);
 
         // Authentification fail
         static std::string& ERR_SASLFAIL(const std::string& username);

@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:28 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 17:28:31 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:26:55 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ class Server;
 class Client
 {
 	private:
-		int			_fd;
-		std::string	_username;
-		std::string	_nickname;
-		std::string	_ipAddr;
-		std::string	_sendBuffer;
-		std::string	_readBuffer;
-		int			_authStatus;
+		int					_fd;
+		std::string			_username;
+		std::string			_nickname;
+		std::string			_ipAddr;
+		std::string			_sendBuffer;
+		std::string			_readBuffer;
+		int					_authStatus;
 
 	public:
 		Client();

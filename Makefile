@@ -23,6 +23,7 @@ SRCS =	$(addprefix srcs/, \
 	member/JoinCommand.cpp \
 	member/QuitCommand.cpp \
 	member/PrivMsgCommand.cpp \
+	member/PartCommand.cpp \
 	operator/ModeCommand.cpp \
 )
 

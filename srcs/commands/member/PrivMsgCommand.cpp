@@ -37,13 +37,13 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
         {
             Client* target = channel->getClients()[index];
             if (target->getFd() == client->getFd()) continue ;
-            target->setSendBuffer(client->getUsername() + " PRIVMSG " + channel->getName() + ":" + message+ "\r\n");
+            target->setSendBuffer(":" + client->getUsername() + " PRIVMSG " + channel->getName() + " " + message+ "\r\n");
             sendBuffer(*target);
         }
     }
     else // Private message
     {
-
+        
     }
 
 }

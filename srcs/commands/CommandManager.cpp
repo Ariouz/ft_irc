@@ -9,6 +9,7 @@
 # include "commands/member/JoinCommand.hpp"
 # include "commands/member/QuitCommand.hpp"
 # include "commands/member/PrivMsgCommand.hpp"
+# include "commands/member/PartCommand.hpp"
 # include "commands/operator/ModeCommand.hpp"
 
 CommandManager::CommandManager() {}
@@ -33,6 +34,7 @@ void    CommandManager::registerAll()
     this->_commands.push_back(new JoinCommand("JOIN"));
     this->_commands.push_back(new QuitCommand("QUIT"));
     this->_commands.push_back(new PrivMsgCommand("PRIVMSG"));
+    this->_commands.push_back(new PartCommand("PART"));
 }
 
 bool    CommandManager::isCommand(const std::string& req)

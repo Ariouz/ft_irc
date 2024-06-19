@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:25:23 by laguigue          #+#    #+#             */
-/*   Updated: 2024/06/18 17:24:53 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:41:47 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ class Channel
 
 		void 						addClient(Client* client);
 		void 						removeClient(int clientFd);
+		bool						isClient(int clientFd) const;
 	
 		void 						addOperator(Client* ope);
 		void 						removeOperator(int operatorFd);
+		bool 						isOperator(int clientFd) const;
 	
 		void						addWhitelisted(Client* client);
 		void						removeWhitelisted(int clientFd);
@@ -45,7 +47,6 @@ class Channel
 	
 		int 						getId() const;
 		ChannelSettings* 			getSettings(void);
-		bool 						isOperator(int clientFd) const;
 		const std::string&			getName(void) const;
 		std::vector<Client*>&		getClients(void);
 };

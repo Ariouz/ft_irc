@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 18:04:42 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:35:20 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Server
 		int							_port;
 		int							_serverFd;
 		std::string					_password;
-		std::vector<Client>			_clients;
+		std::vector<Client*>		_clients;
 		std::vector<Channel*>		_channels;
 		std::vector<struct pollfd>	_polls;
 		CommandManager*				_commandManager;
@@ -54,8 +54,8 @@ class Server
 		Channel* 				getChannel(int channelId);
 		Channel* 				getChannelByName(const std::string& name);
 		CommandManager& 		getCommandManager(void);
-		std::vector<Client>& 	getClients(void);
-		std::vector<Channel*> 	getChannels(void) const;
+		std::vector<Client*>& 	getClients(void);
+		std::vector<Channel*>& 	getChannels(void);
 		
 		
 		bool				checkAuth(Client& client);

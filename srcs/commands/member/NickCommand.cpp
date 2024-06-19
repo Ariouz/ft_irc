@@ -21,7 +21,7 @@ static bool     not_used_nick(Server& server, std::string nickname)
 {
     for (std::size_t index = 0; index < server.getClients().size(); index++)
     {
-        if (nickname == server.getClients()[index].getNickname())
+        if (nickname == server.getClients()[index]->getNickname())
         {
             return (false);
         }
@@ -68,7 +68,7 @@ void NickCommand::execute(const std::vector<std::string> args, Channel* channel,
         Client* target;
         for (std::size_t index = 0; index < server.getClients().size(); index++)
         {
-            target = &server.getClients()[index];
+            target = server.getClients()[index];
             target->setSendBuffer(client->getNickname() + " NICK " + args[0] + "\r\n");
             sendBuffer(*target);
         }

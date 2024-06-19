@@ -11,7 +11,7 @@ void CapCommand::execute(const std::vector<std::string> args, Channel* channel, 
 {
     (void) server;
     (void) channel;
-    //if (args.size() == 0) return ;
+    if (args.size() == 0) return ;
 
     std::cout << "Cap Command execute" << std::endl;
     std::cout << "args[0] : " + args[0] << std::endl;

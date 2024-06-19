@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/18 17:18:30 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:49:15 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ Server::Server(std::string port, std::string pass)
 
 Server::~Server(void)
 {
+	this->closeFd();
 	for (std::size_t index = 0; index < this->_channels.size(); index++)
 		delete this->_channels[index];
-	this->closeFd();
+	/*for (std::size_t index = 0; index < this->_clients.size(); index++)
+		delete this->_clients[index];*/
 	delete this->_commandManager;
 }
 
@@ -108,7 +110,7 @@ void	Server::loop(void)
 
 void	Server::acceptClient(void)
 {
-	Client			client;
+	Client			*client;
 	sockaddr_in		client_addr;
 	struct pollfd	client_poll_fd;
 	int				client_socket_fd;
@@ -126,8 +128,9 @@ void	Server::acceptClient(void)
 		throw std::runtime_error("Error: failed to set client to NONBLOCK");
 	}
 
-	client.setFd(client_socket_fd);
-	client.setIpAddr(inet_ntoa(client_addr.sin_addr));
+	client = new Client();
+	client->setFd(client_socket_fd);
+	client->setIpAddr(inet_ntoa(client_addr.sin_addr));
 	this->_clients.push_back(client);
 	
 	client_poll_fd.fd = client_socket_fd;
@@ -171,15 +174,14 @@ void	Server::acceptData(int fd)
             }
         }
     }
-	std::cout << client->getNickname() << std::endl;
 }
 
 void	Server::closeFd(void)
 {
 	for (std::size_t index = 0; index < this->_clients.size(); index++)
 	{	
-		close(this->_clients[index].getFd());
-		std::cout << "Client " << this->_clients[index].getFd() << " have been closed" << std::endl;
+		std::cout << "Client " << this->_clients[index]->getFd() << " has been closed" << std::endl;
+		clearClient(this->_clients[index]->getFd());
 	}
 
 	if (this->getServerFd() != -1)
@@ -193,10 +195,11 @@ void	Server::clearClient(int fd)
 {
 	for (std::size_t index = 0; index < this->_clients.size(); index++)
 	{
-		if (this->_clients[index].getFd() == fd)
+		if (this->_clients[index]->getFd() == fd)
 		{
-			this->_clients[index].leaveAll(*this);
-			close(this->_clients[index].getFd());
+			this->_clients[index]->leaveAll(*this);
+			close(this->_clients[index]->getFd());
+			delete this->_clients[index];
 			this->_clients.erase(this->_clients.begin() + index);
 		}
 	}
@@ -253,7 +256,7 @@ const std::string&	Server::getPassword(void) const
 	return (this->_password);
 }
 
-std::vector<Client>& Server::getClients(void)
+std::vector<Client*>& Server::getClients(void)
 {
 	return this->_clients;
 }
@@ -262,14 +265,14 @@ Client* Server::getClient(int clientFd)
 {
 	for (std::size_t index = 0; index < this->_clients.size(); index++)
 	{
-		if (this->_clients[index].getFd() == clientFd)
-			return &this->_clients[index];
+		if (this->_clients[index]->getFd() == clientFd)
+			return this->_clients[index];
 	}
 	
 	return NULL;
 }
 
-std::vector<Channel*> Server::getChannels(void) const
+std::vector<Channel*>& Server::getChannels(void)
 {
 	return this->_channels;
 }

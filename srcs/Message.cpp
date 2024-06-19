@@ -66,19 +66,18 @@ std::string& Message::RPL_TOPIC(const std::string& username, const std::string& 
     return res;
 }
 
-std::string& Message::RPL_NAMREPLY(Client& client, const Channel& channel)
+std::string& Message::RPL_NAMREPLY(Client* client, const Channel* channel)
 {
     (void) channel;
     (void) client;
     static std::string res;
-    std::string prefix = "";
     //std::cout << "fd: " << client.getFd() << " \n";
-    //std::string prefix = channel.isOperator(client.getFd()) ? "@" : "";
+    std::string prefix = channel->isOperator(client->getFd()) ? "@" : "";
     //std::cout << client.getUsername() << std::endl;
     /*std::cout << channel.getName() + " \n";
     std::cout << prefix + " \n";
     std::cout << "nickane:" + client.getNickname() + " \n";*/
-    res = "353 TEST = test :test\r\n";//"353 " + client.getUsername() + " = " + channel.getName() + " :" + prefix + client.getNickname() + "\r\n";
+    res = "353 " + client->getUsername() + " = " + channel->getName() + " :" + prefix + client->getNickname() + "\r\n";
     return res;
 }
 
@@ -122,4 +121,11 @@ std::string& Message::ERR_NOTEXTTOSEND(const std::string& username)
     static std::string res;
     res = "412 " + username + " :No text to send\r\n";
     return (res);
+}
+
+std::string& Message::ERR_NOTONCHANNEL(const std::string& username, const std::string& channel)
+{
+    static std::string res;
+    res = "442 "+username+ " " + channel + " :You're not on that channel\r\n";
+    return res;
 }

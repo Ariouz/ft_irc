@@ -29,8 +29,6 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
     Channel* channel = server.getChannelByName(args[0]);
     if (!channel)
     {
-        /*client->setSendBuffer(Message::ERR_NOSUCHCHANNEL(client->getUsername(), args[0]));
-        sendBuffer(*client);*/
         server.createChannel(args[0]);
         channel = server.getChannelByName(args[0]);
         channel->addOperator(client);
@@ -64,8 +62,16 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
     std::cout << client->getNickname() << std::endl;
 
     channel->addClient(client);
-    client->setSendBuffer(client->getUsername() + " JOIN " + channel->getName() + "\r\n");
+    client->setSendBuffer(":"+client->getUsername() + " JOIN " + channel->getName() + "\r\n");
     sendBuffer(*client);
+
+    for (std::size_t index = 0; index < channel->getClients().size(); index++)
+    {
+        Client *target = channel->getClients()[index];
+        if (target->getFd() == client->getFd()) continue ;
+        target->setSendBuffer(":"+client->getUsername() + " JOIN :" + channel->getName() + "\r\n");
+        sendBuffer(*target);
+    }
 
     if (!channel->getSettings()->getTopic().empty())
     {
@@ -75,12 +81,11 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
 
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
-        std::cout << "Loop index " << index << std::endl;
-        if (!channel->getClients()[index]) continue;
-        client->setSendBuffer(Message::RPL_NAMREPLY(*channel->getClients()[index], *channel));
+        client->setSendBuffer(Message::RPL_NAMREPLY(channel->getClients()[index], channel));
         sendBuffer(*client);
     }
 
     client->setSendBuffer(Message::RPL_ENDOFNAMES(*client, *channel));
     sendBuffer(*client);
+
 }

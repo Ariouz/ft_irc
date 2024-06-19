@@ -42,6 +42,16 @@ void Channel::removeClient(int clientFd)
     }
 }
 
+bool Channel::isClient(int clientFd) const
+{
+    for (std::size_t index = 0; index < this->_clients.size(); index++)
+    {
+        if (this->_clients[index]->getFd() == clientFd)
+            return true;
+    }
+    return false;
+}
+
 void Channel::addOperator(Client* ope)
 {
     this->_operators.push_back(ope);

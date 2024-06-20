@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:28:36 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/19 12:17:13 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:41:29 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ class Server
 		void					setServerFd(int fd);
 
 		void					createChannel(const std::string& name);
+		void					deleteChannel(Channel* channel);
 
 		int						getPort(void) const;
 		int						getServerFd(void) const;

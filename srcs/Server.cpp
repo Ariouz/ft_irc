@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/19 12:17:22 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:41:26 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,18 @@ void	Server::createChannel(const std::string& name)
 {
 	Channel* channel = new Channel(*this, name);
 	this->_channels.push_back(channel);
+}
+
+void	Server::deleteChannel(Channel* channel)
+{
+	for (std::size_t index = 0; index < this->_channels.size(); index++)
+	{
+		if (this->_channels[index]->getId() == channel->getId())
+		{
+			this->_channels.erase(this->_channels.begin() + index);
+			delete channel;
+		}
+	}
 }
 
 void	Server::setPassword(std::string pass)

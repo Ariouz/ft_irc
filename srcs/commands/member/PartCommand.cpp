@@ -53,4 +53,7 @@ void PartCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
 
     channel->removeClient(client->getFd());
 
+    if (channel->getClients().size() == 0)
+        server.deleteChannel(channel);
+
 }

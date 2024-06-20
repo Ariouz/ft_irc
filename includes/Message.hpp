@@ -25,6 +25,7 @@ class Message
 
         // Pas assez de permissions
         static std::string& ERR_NOPRIVS(const std::string& username, const std::string& privilege);
+        static std::string& ERR_CHANOPRIVSNEEDED(const std::string& username, const std::string& channel);
 
         // Flag de /MODE pas pris en charge
         static std::string& ERR_UMODEUNKNOWNFLAG(const std::string& username);
@@ -37,6 +38,7 @@ class Message
         static std::string& ERR_NOTONCHANNEL(const std::string& username, const std::string& channel);
         static std::string& ERR_INVITEONLYCHAN(const std::string& username, const std::string& channel);
         static std::string& ERR_BADCHANNELKEY(const std::string& username, const std::string& channel);
+        static std::string& ERR_USERNOTINCHANNEL(const std::string& username, const std::string& nickname, const std::string& channel);
 
         // Liste des noms pour JOIN et NAMEs
         static std::string& RPL_NAMREPLY(Client* client, const Channel* channel);

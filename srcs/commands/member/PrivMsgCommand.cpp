@@ -37,9 +37,9 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
             return ;
         }
 
-        std::vector<std::string> msgVec = args;
-        msgVec.erase(msgVec.begin());
+        std::vector<std::string> msgVec (args.begin() + 1, args.end());
         std::string message = vectorToString(msgVec);
+
         for (std::size_t index = 0; index < channel->getClients().size(); index++)
         {
             Client* target = channel->getClients()[index];
@@ -58,9 +58,9 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
             return ;
         }
 
-        std::vector<std::string> msgVec = args;
-        msgVec.erase(msgVec.begin());
+        std::vector<std::string> msgVec (args.begin() + 1, args.end());
         std::string message = vectorToString(msgVec);
+        
         target->setSendBuffer(":" + client->getNickname() + " PRIVMSG " + target->getNickname() + " " + message+ "\r\n");
         sendBuffer(*target);
     }

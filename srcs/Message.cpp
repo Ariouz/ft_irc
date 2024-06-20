@@ -136,3 +136,17 @@ std::string& Message::ERR_NOSUCHNICK(const std::string& username, const std::str
     res = "401 "+username+ " " + nickname + " :No such nick/channel\r\n";
     return res;
 }
+
+std::string& Message::ERR_USERNOTINCHANNEL(const std::string& username, const std::string& nickname, const std::string& channel)
+{
+    static std::string res;
+    res = "441 "+username+ " " + nickname + " " + channel + " :They aren't on that channel\r\n";
+    return res;
+}
+
+std::string& Message::ERR_CHANOPRIVSNEEDED(const std::string& username, const std::string& channel)
+{
+    static std::string res;
+    res = "482 "+username+ " " + channel + " :You're not channel operator\r\n";
+    return res;
+}

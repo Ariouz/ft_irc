@@ -25,6 +25,7 @@ SRCS =	$(addprefix srcs/, \
 	member/PrivMsgCommand.cpp \
 	member/PartCommand.cpp \
 	operator/ModeCommand.cpp \
+	operator/KickCommand.cpp \
 )
 
 OBJS = $(SRCS:.cpp=.o)

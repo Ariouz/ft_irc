@@ -39,7 +39,10 @@ class Message
         static std::string& ERR_INVITEONLYCHAN(const std::string& username, const std::string& channel);
         static std::string& ERR_BADCHANNELKEY(const std::string& username, const std::string& channel);
         static std::string& ERR_USERNOTINCHANNEL(const std::string& username, const std::string& nickname, const std::string& channel);
+        static std::string& ERR_USERONCHANNEL(const std::string& username, const std::string& nickname, const std::string& channel);
+        static std::string& RPL_INVITING(const std::string& username, const std::string& nickname, const std::string& channel);
 
+    
         // Liste des noms pour JOIN et NAMEs
         static std::string& RPL_NAMREPLY(Client* client, const Channel* channel);
         static std::string& RPL_ENDOFNAMES(Client& client, const Channel& channel);

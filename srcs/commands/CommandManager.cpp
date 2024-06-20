@@ -12,6 +12,7 @@
 # include "commands/member/PartCommand.hpp"
 # include "commands/operator/ModeCommand.hpp"
 # include "commands/operator/KickCommand.hpp"
+# include "commands/operator/InviteCommand.hpp"
 
 CommandManager::CommandManager() {}
 CommandManager::~CommandManager()
@@ -37,6 +38,7 @@ void    CommandManager::registerAll()
     this->_commands.push_back(new PrivMsgCommand("PRIVMSG"));
     this->_commands.push_back(new PartCommand("PART"));
     this->_commands.push_back(new KickCommand("KICK"));
+    this->_commands.push_back(new InviteCommand("INVITE"));
 }
 
 bool    CommandManager::isCommand(const std::string& req)

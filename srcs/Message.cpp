@@ -144,9 +144,23 @@ std::string& Message::ERR_USERNOTINCHANNEL(const std::string& username, const st
     return res;
 }
 
+std::string& Message::ERR_USERONCHANNEL(const std::string& username, const std::string& nickname, const std::string& channel)
+{
+    static std::string res;
+    res = "443 "+username+ " " + nickname + " " + channel + " :is already on channel\r\n";
+    return res;
+}
+
 std::string& Message::ERR_CHANOPRIVSNEEDED(const std::string& username, const std::string& channel)
 {
     static std::string res;
     res = "482 "+username+ " " + channel + " :You're not channel operator\r\n";
+    return res;
+}
+
+std::string& Message::RPL_INVITING(const std::string& username, const std::string& nickname, const std::string& channel)
+{
+    static std::string res;
+    res = "341 "+username+ " " + nickname + " " + channel + "\r\n";
     return res;
 }

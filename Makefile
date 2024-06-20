@@ -26,6 +26,7 @@ SRCS =	$(addprefix srcs/, \
 	member/PartCommand.cpp \
 	operator/ModeCommand.cpp \
 	operator/KickCommand.cpp \
+	operator/InviteCommand.cpp \
 )
 
 OBJS = $(SRCS:.cpp=.o)

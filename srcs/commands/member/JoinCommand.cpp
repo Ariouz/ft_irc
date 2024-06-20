@@ -59,17 +59,18 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
         }
     }
 
-    std::cout << client->getNickname() << std::endl;
+    if (channel->isClient(client->getFd()))
+        return ;
 
     channel->addClient(client);
-    client->setSendBuffer(":"+client->getUsername() + " JOIN " + channel->getName() + "\r\n");
+    client->setSendBuffer(":"+client->getNickname() + " JOIN " + channel->getName() + "\r\n");
     sendBuffer(*client);
 
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
         Client *target = channel->getClients()[index];
         if (target->getFd() == client->getFd()) continue ;
-        target->setSendBuffer(":"+client->getUsername() + " JOIN :" + channel->getName() + "\r\n");
+        target->setSendBuffer(":"+client->getNickname() + " JOIN :" + channel->getName() + "\r\n");
         sendBuffer(*target);
     }
 

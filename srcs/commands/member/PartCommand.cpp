@@ -47,7 +47,7 @@ void PartCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
     for (std::size_t index = 0; index < channel->getClients().size(); index++)
     {
         Client *target = channel->getClients()[index];
-        target->setSendBuffer(":" + client->getUsername() + " PART " + channelName + (reason.empty() ? "" : " :" + reason) + "\r\n");
+        target->setSendBuffer(":" + client->getNickname() + " PART " + channelName + (reason.empty() ? "" : " :" + reason) + "\r\n");
         sendBuffer(*target);
     }
 

@@ -10,10 +10,7 @@ NickCommand::~NickCommand() {}
 static bool    correct_nickname(std::string nickname)
 {
     if (nickname[0] == ':' || nickname[0] == '#' || nickname[0] == '&' || nickname.find(" ") != std::string::npos)
-    {
         return (false);
-    }
-
     return (true);
 }
 
@@ -22,11 +19,8 @@ static bool     not_used_nick(Server& server, std::string nickname)
     for (std::size_t index = 0; index < server.getClients().size(); index++)
     {
         if (nickname == server.getClients()[index]->getNickname())
-        {
             return (false);
-        }
     }
-
     return (true);
 }
 
@@ -63,16 +57,16 @@ void NickCommand::execute(const std::vector<std::string> args, Channel* channel,
         client->setAuthStatus(AUTH_ERR);
         return ;
     }
+
     if (client->isAuthenticated())
     {
         Client* target;
         for (std::size_t index = 0; index < server.getClients().size(); index++)
         {
             target = server.getClients()[index];
-            target->setSendBuffer(client->getNickname() + " NICK " + args[0] + "\r\n");
+            target->setSendBuffer(":"+client->getNickname() + " NICK " + args[0] + "\r\n");
             sendBuffer(*target);
         }
-        return ;
     }
 
     client->setNickname(args[0]);

@@ -11,6 +11,7 @@ SRCS =	$(addprefix srcs/, \
 	ChannelSettings.cpp \
 	utils.cpp \
 	Message.cpp \
+	bot/Bot.cpp \
 ) $(addprefix srcs/commands/, \
 	Command.cpp \
 	CommandManager.cpp \

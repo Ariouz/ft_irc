@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:23:26 by gurousta          #+#    #+#             */
-/*   Updated: 2024/06/20 11:41:26 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:50:18 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ Server::~Server(void)
 	/*for (std::size_t index = 0; index < this->_clients.size(); index++)
 		delete this->_clients[index];*/
 	delete this->_commandManager;
+	this->_clients.clear();
 }
 
 void	Server::serverInit(void)
@@ -165,6 +166,9 @@ void	Server::acceptData(int fd)
 	std::vector<std::string> lines = splitByCr(buffer);
     Client* client = getClient(fd);
 
+	if (!client)
+		return ;
+
     for (std::size_t index = 0; index < lines.size(); ++index) {
         if (this->_commandManager->isCommand(lines[index]) == 1) {
             if (client) {
@@ -182,6 +186,7 @@ void	Server::closeFd(void)
 	{	
 		std::cout << "Client " << this->_clients[index]->getFd() << " has been closed" << std::endl;
 		clearClient(this->_clients[index]->getFd());
+		index--;
 	}
 
 	if (this->getServerFd() != -1)
@@ -195,12 +200,16 @@ void	Server::clearClient(int fd)
 {
 	for (std::size_t index = 0; index < this->_clients.size(); index++)
 	{
+		if (!this->_clients[index]) continue ;
 		if (this->_clients[index]->getFd() == fd)
 		{
-			this->_clients[index]->leaveAll(*this);
 			close(this->_clients[index]->getFd());
-			delete this->_clients[index];
+			this->_clients[index]->leaveAll(*this);
+			Client* client = this->_clients[index];
+			std::cout << "delete " << client->getFd() << std::endl;
+			delete client;
 			this->_clients.erase(this->_clients.begin() + index);
+			break ;
 		}
 	}
 

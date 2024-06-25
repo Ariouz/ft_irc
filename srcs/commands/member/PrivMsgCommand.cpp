@@ -1,4 +1,5 @@
 #include "commands/member/PrivMsgCommand.hpp"
+#include "Bot.hpp"
 
 PrivMsgCommand::PrivMsgCommand(const std::string& name) 
 {
@@ -47,6 +48,9 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
             target->setSendBuffer(":" + client->getNickname() + " PRIVMSG " + channel->getName() + " " + message+ "\r\n");
             sendBuffer(*target);
         }
+
+        Bot bot = Bot();
+        bot.checkBotMention(client, channel, message);
     }
     else // Private message
     {
@@ -65,4 +69,5 @@ void PrivMsgCommand::execute(const std::vector<std::string> args, Channel* chan,
         sendBuffer(*target);
     }
 
+    
 }

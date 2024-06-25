@@ -88,5 +88,5 @@ void JoinCommand::execute(const std::vector<std::string> args, Channel* chan, Cl
 
     client->setSendBuffer(Message::RPL_ENDOFNAMES(*client, *channel));
     sendBuffer(*client);
-
+    
 }

@@ -24,5 +24,14 @@ void Bot::checkBotMention(Client* client, Channel* channel, const std::string& m
                 sendBuffer(*target);
             }
         }
+        else if (args[0].compare("hello") == 0)
+        {
+            for (std::size_t index = 0; index < channel->getClients().size(); index++)
+            {
+                Client* target = channel->getClients()[index];
+                target->setSendBuffer(":bot PRIVMSG " + channel->getName() + " Hello there " + client->getNickname() + "!\r\n");
+                sendBuffer(*target);
+            }
+        }
     }
 }
